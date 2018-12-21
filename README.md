@@ -16,6 +16,26 @@ JobDetail表示一个具体的可执行的调度程序，Job是这个可执行�
 ![](https://i.imgur.com/bCm75FA.png)
 
 <pre>
+Quartz框架的基础概念：
+
+     1) Quartz把触发job，叫做fire。TRIGGER_STATE是当前trigger的状态，
+        PREV_FIRE_TIME是上一次触发时间，NEXT_FIRE_TIME是下一次触发时间，
+        misfire是指这个job在某一时刻要触发，却因为某些原因没有触发的情况。
+
+     2) Quartz在运行时，会起两类线程（不止两类），一类用于调度job的调度线程（单线程），
+        一类是用于执行job具体业务的工作池。
+
+     3) Quartz自带的表里面，本文主要涉及以下3张表：
+
+         triggers表。triggers表里记录了，某个trigger的PREV_FIRE_TIME
+        （上次触发时间），NEXT_FIRE_TIME（下一次触发时间），TRIGGER_STATE
+        （当前状态）。虽未尽述，但是本文用到的只有这些。
+     5) locks表。Quartz支持分布式，也就是会存在多个线程同时抢占相同资源的情况，
+        而Quartz正是依赖这张表，处理这种状况，至于如何做到，参见3.1。
+     6) fired_triggers表，记录正在触发的triggers信息。
+</pre>
+
+<pre>
 CREATE TABLE `qrtz_blob_triggers` (
   `SCHED_NAME` varchar(120) NOT NULL,
   `TRIGGER_NAME` varchar(200) NOT NULL,
