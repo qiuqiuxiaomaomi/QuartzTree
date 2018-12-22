@@ -199,3 +199,7 @@ CREATE TABLE `qrtz_triggers` (
 Quartz重复调度问题
 
 ![](https://i.imgur.com/T5UoWDW.png)
+
+在配置文件加上org.quartz.jobStore.acquireTriggersWithinLock=true，这样，在调度流
+程的第一步，也就是拉取待即将触发的triggers时，是上锁的状态，即不会同时存在多个线程拉取
+到相同的trigger的情况，也就避免的重复调度的危险。
