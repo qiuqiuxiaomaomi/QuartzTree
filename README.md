@@ -35,6 +35,7 @@ Quartz框架的基础概念：
      6) fired_triggers表，记录正在触发的triggers信息。
 </pre>
 
+###以blob类型存储的触发器
 <pre>
 CREATE TABLE `qrtz_blob_triggers` (
   `SCHED_NAME` varchar(120) NOT NULL,
@@ -46,6 +47,7 @@ CREATE TABLE `qrtz_blob_triggers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
 </pre>
 
+###存放日历信息，quartz可以配置一个日历来指定一个时间范围
 <pre>
 CREATE TABLE `qrtz_calendars` (
   `SCHED_NAME` varchar(120) NOT NULL,
@@ -55,6 +57,7 @@ CREATE TABLE `qrtz_calendars` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
 </pre>
 
+###存放cron类型的触发器
 <pre>
 CREATE TABLE `qrtz_cron_triggers` (
   `SCHED_NAME` varchar(120) NOT NULL,
@@ -67,6 +70,7 @@ CREATE TABLE `qrtz_cron_triggers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
 </pre>
 
+###存放已经触发的触发器
 <pre>
 CREATE TABLE `qrtz_fired_triggers` (
   `SCHED_NAME` varchar(120) NOT NULL,
@@ -86,6 +90,7 @@ CREATE TABLE `qrtz_fired_triggers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
 </pre>
 
+###存放jobdetail信息
 <pre>
 CREATE TABLE `qrtz_job_details` (
   `SCHED_NAME` varchar(120) NOT NULL,
@@ -102,6 +107,7 @@ CREATE TABLE `qrtz_job_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
 </pre>
 
+###存储程序的悲观锁信息
 <pre>
 CREATE TABLE `qrtz_locks` (
   `SCHED_NAME` varchar(120) NOT NULL,
@@ -110,6 +116,7 @@ CREATE TABLE `qrtz_locks` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
 </pre>
 
+###存放暂时停掉的触发器
 <pre>
 CREATE TABLE `qrtz_paused_trigger_grps` (
   `SCHED_NAME` varchar(120) NOT NULL,
@@ -118,6 +125,7 @@ CREATE TABLE `qrtz_paused_trigger_grps` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
 </pre>
 
+###调度器状态
 <pre>
 CREATE TABLE `qrtz_scheduler_state` (
   `SCHED_NAME` varchar(120) NOT NULL,
@@ -128,6 +136,7 @@ CREATE TABLE `qrtz_scheduler_state` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
 </pre>
 
+###简单触发器的信息
 <pre>
 CREATE TABLE `qrtz_simple_triggers` (
   `SCHED_NAME` varchar(120) NOT NULL,
@@ -162,6 +171,7 @@ CREATE TABLE `qrtz_simprop_triggers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
 </pre>
 
+###触发器的基本信息
 <pre>
 CREATE TABLE `qrtz_triggers` (
   `SCHED_NAME` varchar(120) NOT NULL,
@@ -185,3 +195,7 @@ CREATE TABLE `qrtz_triggers` (
   CONSTRAINT `qrtz_triggers_ibfk_1` FOREIGN KEY (`SCHED_NAME`, `JOB_NAME`, `JOB_GROUP`) REFERENCES `qrtz_job_details` (`SCHED_NAME`, `JOB_NAME`, `JOB_GROUP`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
 </pre>
+
+Quartz重复调度问题
+
+![](https://i.imgur.com/T5UoWDW.png)
